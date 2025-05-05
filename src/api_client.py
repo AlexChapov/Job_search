@@ -12,14 +12,13 @@ class APIClient(abc.ABC):
 
     @abc.abstractmethod
     def _connect(self) -> None:
-        """
-        Абстрактный метод для подключения к API.
-        """
+        """Абстрактный метод для подключения к API."""
         pass
 
     @abc.abstractmethod
     def get_vacancies(self, search_query: str, area: str, page: int = 0) -> Optional[Dict]:
         """Абстрактный метод для получения вакансий по заданному запросу."""
+
         pass
 
 
@@ -33,6 +32,7 @@ class HeadHunterAPI(APIClient):
 
     def _create_user_agent(self) -> str:
         """Создает User-Agent строку."""
+
         import platform
 
         import requests
@@ -54,6 +54,7 @@ class HeadHunterAPI(APIClient):
 
     def _connect(self) -> None:
         """Приватный метод для проверки подключения к API hh.ru."""
+
         try:
             response = requests.get(self.__base_url, headers=self.__headers)
             response.raise_for_status()
@@ -62,6 +63,7 @@ class HeadHunterAPI(APIClient):
 
     def get_vacancies(self, search_query: str, area: str, page: int = 0) -> Optional[Dict[str, Any]]:
         """Получает список вакансий с hh.ru по заданному запросу."""
+
         url = f"{self.__base_url}/vacancies"
         params = {
             "text": search_query,
@@ -85,4 +87,5 @@ class HeadHunterAPI(APIClient):
 class MockHeadHunterAPI:
     def get_vacancies(self) -> Dict[str, Any]:
         """Мок для HeadHunterAPI."""
+
         return {"items": []}
