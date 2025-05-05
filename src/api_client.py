@@ -5,9 +5,7 @@ import requests
 
 
 class APIClient(abc.ABC):
-    """
-    Абстрактный класс для работы с API сервисов с вакансиями.
-    """
+    """Абстрактный класс для работы с API сервисов с вакансиями."""
 
     def __init__(self) -> None:
         pass
@@ -21,23 +19,12 @@ class APIClient(abc.ABC):
 
     @abc.abstractmethod
     def get_vacancies(self, search_query: str, area: str, page: int = 0) -> Optional[Dict]:
-        """
-        Абстрактный метод для получения вакансий по заданному запросу.
-
-        Args:
-            search_query: поисковый запрос.
-            page: номер страницы (для пагинации).
-
-        Returns:
-            Список вакансий.
-        """
+        """Абстрактный метод для получения вакансий по заданному запросу."""
         pass
 
 
 class HeadHunterAPI(APIClient):
-    """
-    Класс для работы с API hh.ru.
-    """
+    """Класс для работы с API hh.ru."""
 
     def __init__(self) -> None:
         super().__init__()
@@ -66,9 +53,7 @@ class HeadHunterAPI(APIClient):
         return user_agent
 
     def _connect(self) -> None:
-        """
-        Приватный метод для проверки подключения к API hh.ru.
-        """
+        """Приватный метод для проверки подключения к API hh.ru."""
         try:
             response = requests.get(self.__base_url, headers=self.__headers)
             response.raise_for_status()
@@ -76,9 +61,7 @@ class HeadHunterAPI(APIClient):
             raise ConnectionError(f"Ошибка подключения к API hh.ru: {e}")
 
     def get_vacancies(self, search_query: str, area: str, page: int = 0) -> Optional[Dict[str, Any]]:
-        """
-        Получает список вакансий с hh.ru по заданному запросу.
-        """
+        """Получает список вакансий с hh.ru по заданному запросу."""
         url = f"{self.__base_url}/vacancies"
         params = {
             "text": search_query,
