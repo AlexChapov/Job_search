@@ -18,6 +18,7 @@ def hh_api() -> HeadHunterAPI:
 @pytest.fixture
 def json_file_manager(tmpdir: Path) -> Generator[JSONFileManager, None, None]:
     """Фикстура для создания временного JSONFileManager."""
+
     filename = tmpdir / "test_vacancies.json"
     file_manager = JSONFileManager(str(filename))
     yield file_manager
@@ -28,6 +29,7 @@ def json_file_manager(tmpdir: Path) -> Generator[JSONFileManager, None, None]:
 @pytest.fixture
 def csv_file_manager(tmpdir: Path) -> Generator[CSVFileManager, None, None]:
     """Фикстура для создания временного CSVFileManager."""
+
     filename = tmpdir / "test_vacancies.csv"
     file_manager = CSVFileManager(str(filename))
     yield file_manager
@@ -38,6 +40,7 @@ def csv_file_manager(tmpdir: Path) -> Generator[CSVFileManager, None, None]:
 @pytest.fixture
 def mock_hh_api() -> Generator[MagicMock, None, None]:
     """Фикстура для мокирования HeadHunterAPI."""
+
     with patch("src.utils.HeadHunterAPI") as MockHeadHunterAPI:
         mock_api = MockHeadHunterAPI.return_value
         yield mock_api
@@ -46,6 +49,7 @@ def mock_hh_api() -> Generator[MagicMock, None, None]:
 @pytest.fixture
 def sample_hh_item() -> Dict[str, Any]:
     """Фикстура для создания sample_hh_item."""
+
     return {
         "name": "Python Developer",
         "alternate_url": "https://example.com/vacancy/123",
@@ -57,6 +61,7 @@ def sample_hh_item() -> Dict[str, Any]:
 @pytest.fixture
 def sample_vacancy() -> Vacancy:
     """Фикстура для создания sample_vacancy."""
+
     return Vacancy(
         title="Python Developer",
         url="https://example.com/vacancy/123",

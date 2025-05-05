@@ -16,18 +16,21 @@ class Vacancy:
 
     def __gt__(self, other: object) -> bool:
         """Сравнение вакансий по зарплате (больше)."""
+
         if not isinstance(other, Vacancy):
             return NotImplemented
         return self.salary_from > other.salary_from
 
     def __lt__(self, other: object) -> bool:
         """Сравнение вакансий по зарплате (меньше)."""
+
         if not isinstance(other, Vacancy):
             return NotImplemented
         return self.salary_from < other.salary_from
 
     def __eq__(self, other: object) -> bool:
         """Сравнение вакансий по зарплате (равно)."""
+
         if not isinstance(other, Vacancy):
             return False
         return self.salary_from == other.salary_from
@@ -37,12 +40,14 @@ class Vacancy:
 
     def _validate_salary(self, salary: int) -> int:
         """Приватный метод для валидации зарплаты."""
+
         if not isinstance(salary, (int, float)):
             return 0
         return int(salary)
 
     def __iter__(self) -> Iterator[Tuple[str, Any]]:
         """Переопределяем метод __iter__ для преобразования объекта в словарь."""
+
         yield "title", self.title
         yield "url", self.url
         yield "salary_from", self.salary_from

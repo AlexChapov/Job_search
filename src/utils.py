@@ -7,6 +7,7 @@ from src.vacancy import Vacancy
 
 def get_vacancies_from_hh(search_query: str, area_id: str, num_pages: int = 1) -> List[Vacancy]:
     """Получает вакансии с hh.ru и возвращает список объектов Vacancy."""
+
     hh_api = HeadHunterAPI()
     vacancies: List[Vacancy] = []
     for page in range(num_pages):
@@ -22,6 +23,7 @@ def get_vacancies_from_hh(search_query: str, area_id: str, num_pages: int = 1) -
 
 def create_vacancy_from_hh_item(item: Dict) -> Optional[Vacancy]:
     """Создает объект Vacancy из элемента, полученного от API hh.ru."""
+
     try:
         salary_from = item["salary"]["from"] if item["salary"] and item["salary"]["from"] else 0
         salary_to = item["salary"]["to"] if item["salary"] and item["salary"]["to"] else 0
@@ -49,6 +51,7 @@ def create_vacancy_from_hh_item(item: Dict) -> Optional[Vacancy]:
 
 def display_vacancies(vacancies: List[Vacancy]) -> None:
     """Выводит информацию о вакансиях в консоль в удобочитаемом формате."""
+
     if not vacancies:
         print("Нет вакансий для отображения.")
         return
@@ -63,6 +66,7 @@ def display_vacancies(vacancies: List[Vacancy]) -> None:
 
 def save_vacancies_to_file(vacancies: List[Vacancy], filename: str) -> None:
     """Сохраняет список вакансий в JSON-файл."""
+
     file_manager = JSONFileManager(filename)
     for vacancy in vacancies:
         file_manager.add_vacancy(dict(vacancy))
@@ -71,6 +75,7 @@ def save_vacancies_to_file(vacancies: List[Vacancy], filename: str) -> None:
 
 def load_vacancies_from_file(filename: str) -> List[Vacancy]:
     """Загружает список вакансий из JSON-файла и преобразует его в объекты Vacancy."""
+
     file_manager = JSONFileManager(filename)
     vacancy_data = file_manager.get_vacancies()
     vacancies = []
@@ -83,6 +88,7 @@ def load_vacancies_from_file(filename: str) -> List[Vacancy]:
 def interact_with_user() -> None:
     """Функция для взаимодействия с пользователем через консоль.
     Организует поиск, фильтрацию и отображение вакансий."""
+
     search_query = input("Введите поисковый запрос: ")
     area_id = input("Введите ID города (оставьте пустым для поиска по России): ")
     if not area_id:
